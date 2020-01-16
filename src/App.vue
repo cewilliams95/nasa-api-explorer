@@ -1,32 +1,56 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div>
+    <nasa-header></nasa-header>
+    <transition name="slide" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
+<script>
+    import Header from '@/components/Header.vue';
+    export default {
+        components: {
+          'nasa-header': Header
+        }
+    }
+</script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style>
+body {
+  font-family: "Open Sans";
+}
+.danger {
+  background: coral;
 }
 
-#nav {
-  padding: 30px;
+.slide-leave-active {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+    animation: slide-out 0.5s ease-out forwards;
+}
+.slide-leave {
+    opacity: 1;
+    transform: translateX(0);
+}
+.slide-enter-active {
+    animation: slide-in 1s ease-out forwards;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
     }
-  }
+    100% {
+        transform: translateX(-30px);
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-30px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 </style>
